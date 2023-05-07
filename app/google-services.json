@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "148356508016",
+    "firebase_url": "https://ogrencikaydet-bbe2f-default-rtdb.firebaseio.com",
+    "project_id": "ogrencikaydet-bbe2f",
+    "storage_bucket": "ogrencikaydet-bbe2f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:148356508016:android:888136e723d1c190d147b5",
+        "android_client_info": {
+          "package_name": "com.tolgasaglam.mezunapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "148356508016-umunupvem18ev8v9ph0es2q757qndv8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzmbU8Sp6g59TvrK9WaiAHoWrl31PZjJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "148356508016-umunupvem18ev8v9ph0es2q757qndv8p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

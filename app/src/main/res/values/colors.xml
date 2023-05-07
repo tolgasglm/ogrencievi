@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="yesil1">#00FF7F</color>
+    <color name="yesil2">#32CD32</color>
+    <color name="yesil3">#7CFC00</color>
+    <color name="yesil4">#00FA9A</color>
+    <color name="yesil5">#008000</color>
+    <color name="yesil6">#008000</color>
+    <color name="yesil7">#006400</color>
+    <color name="yesil8">#004626</color>
+    <color name="yesil9">#BBE7AC</color>
+
+
+</resources>
