@@ -42,7 +42,5 @@ class MainSifre : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-
     }
 }

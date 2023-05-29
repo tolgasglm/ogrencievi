@@ -17,15 +17,13 @@ class MainGiris : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
-        var currentUser = auth.currentUser
-        /*if(currentUser!=null){
-            startActivity(Intent(this@MainGiris,MainProfil::class.java))
-            finish()
-        }
-        */
+
+
+        //var currentUser = auth.currentUser
+
         binding.girisgirisyap.setOnClickListener {
-            var girisemail = binding.girisemail.text.toString()
-            var girissifre = binding.girissifre.text.toString()
+            val girisemail = binding.girisemail.text.toString()
+            val girissifre = binding.girissifre.text.toString()
             if(TextUtils.isEmpty(girisemail)){
                 binding.girisemail.error = "Email adresinizi giriniz"
                 return@setOnClickListener
@@ -35,15 +33,20 @@ class MainGiris : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+
             auth.signInWithEmailAndPassword(girisemail,girissifre)
-                .addOnCompleteListener(this){
-                    if(it.isSuccessful){
-                        intent = Intent(applicationContext,MainProfil::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    else{
-                        Toast.makeText(applicationContext,"Giriş Hatalı",Toast.LENGTH_LONG)
+                .addOnCompleteListener(this){ task ->
+                    if(task.isSuccessful){
+                        val user = auth.currentUser
+                        if(user != null && user.isEmailVerified){
+                            intent = Intent(applicationContext, MainProfil::class.java)
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "E-posta adresiniz doğrulanmamış.", Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        Toast.makeText(applicationContext, "Giriş Hatalı", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -55,15 +58,10 @@ class MainGiris : AppCompatActivity() {
             finish()
         }
         binding.girissifremiunuttum.setOnClickListener {
-            intent = Intent(applicationContext,MainSifre::class.java)
+            intent = Intent(applicationContext,MainSifre::class.java)//MainSifreRecyclerViewActivity
             startActivity(intent)
             finish()
         }
-
-
-
-
-
 
     }
 }

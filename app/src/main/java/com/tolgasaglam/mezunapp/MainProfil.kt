@@ -50,6 +50,12 @@ class MainProfil : AppCompatActivity() {
             finish()
         }
 
+        binding.veriler.setOnClickListener {
+            intent = Intent(applicationContext,RecyclerViewActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.profilhesabisil.setOnClickListener {
             currentUser?.delete()?.addOnCompleteListener {
                 if(it.isSuccessful){

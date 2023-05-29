@@ -63,6 +63,17 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            auth.setLanguageCode("tr")
+            auth.useAppLanguage()
+
+            val emailPattern = Regex("[a-zA-Z0-9._-]+@std\\.yildiz\\.edu\\.tr")
+
+            if (!emailPattern.matches(binding.kayiteposta.text.toString())) {
+                // E-posta adresi istenen formata uymuyor
+                Toast.makeText(this@MainActivity, "Geçerli bir @std.yildiz.edu.tr e-posta adresi girin.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             auth.createUserWithEmailAndPassword(binding.kayiteposta.text.toString(),binding.kayitsifre.text.toString())
                 .addOnCompleteListener(this){ task->
                     if(task.isSuccessful){
@@ -72,6 +83,17 @@ class MainActivity : AppCompatActivity() {
                         currentUserDb?.child("soyadı")?.setValue(binding.kayitsoyad.text.toString())
                         currentUserDb?.child("girisyili")?.setValue(binding.kayitgirisyil.text.toString())
                         currentUserDb?.child("mezunyili")?.setValue(binding.kayitmezunyil.text.toString())
+
+
+                        currentUser?.sendEmailVerification()?.addOnCompleteListener(this) { verificationTask ->
+                            if (verificationTask.isSuccessful) {
+                                Toast.makeText(this@MainActivity, "Doğrulama e-postası gönderildi. Lütfen e-postanızı kontrol edin.", Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(this@MainActivity, "Doğrulama e-postası gönderilemedi.", Toast.LENGTH_LONG).show()
+                            }
+
+                        }
+
                         Toast.makeText(this@MainActivity, "Kayıt Başarılı",Toast.LENGTH_LONG).show()
                         intent = Intent(applicationContext,MainGiris::class.java)
                         startActivity(intent)
@@ -80,13 +102,8 @@ class MainActivity : AppCompatActivity() {
                     }
                     else{
                         Toast.makeText(this@MainActivity, "Kayıt Başarısız",Toast.LENGTH_LONG).show()
-
                     }
-
-
                 }
-            //database.setValue(Kullanici(kulad,kulsoyad,kulgirisyil, kulmezunyil, kuleposta, kulsifre))
-            //database.child(kuleposta).setValue(Kullanici(kulad,kulsoyad,kulgirisyil, kulmezunyil, kulsifre))
         }
 
         binding.kayitgirisyap.setOnClickListener {
@@ -94,35 +111,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-
-/*
-
-        var getData = object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                var sb = StringBuilder()
-                for(i in snapshot.children) {
-                    var kulad = i.child("kulad").getValue()
-                    var kulsoyad = i.child("kulsoyad").getValue()
-                    var kulgirisyil = i.child("kulgirisyil").getValue()
-                    var kulmezunyil = i.child("kulmezunyil").getValue()
-                    var kulsifre = i.child("kulsifre").getValue()
-                    sb.append("${i.key} $kulad \n $kulsoyad \n $kulgirisyil \n $kulmezunyil \n $kulsifre")
-
-                }
-                binding.kullanicibilgiler.setText(sb)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-
-
-        }
-
-        database.addValueEventListener(getData)
-        database.addListenerForSingleValueEvent(getData)
-*/
-
     }
 }
 
